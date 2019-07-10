@@ -48,11 +48,33 @@
             cursor: pointer;
         }
 
-        #copyButton img {
+        #copyButton img,
+        #questionButton img {
             position: relative;
             top: 4px;
         }
 
+        #questionButton .tooltip {
+            color: white;
+            padding: 2px 8px; 
+            display: none;
+            width: 400px;
+            background: #333;
+            margin-left: 8px; 
+            position: fixed;
+
+        }
+
+        #questionButton:hover .tooltip{
+            display: inline-block; 
+        }
+
+        button {
+            background: blue;
+            color: white;
+            border-radius: 12px;
+            padding: 8px 16px;
+        }
 
         @media screen and (max-width:700px) {
             input {
@@ -64,7 +86,7 @@
 
 <body>
     <form id="dnaRnaProtein" action="" )>
-        <p>Enter DNA code into the Noncoding DNA input and press "go" to translate that DNA into coding dna, rna, and
+        <p>Enter DNA code into the Noncoding DNA input and click "go" to translate that DNA into coding dna, rna, and
             the resulting amino acid sequence of the protein.</p>
 
         <p>Example DNA code: <input id="exampleDna" value="ATGAGGCTAGATCGTTCAGCCTTTCTAGGCTAG"> <span id='copyButton'>
@@ -83,7 +105,8 @@
                 <option value="Mycoplasma capricolum bacteria">Mycoplasma capricolum bacteria</option>
                 <option value="Protozoan Nuclei">Protozoan Nuclei</option>
                 <option value="Yeast">Yeast</option>
-            </select>
+            </select> <span id='questionButton'> <img width="16px" src="question.svg" alt=""> <span class='tooltip'>
+                    Exceptions to the amino acid result of some codons exist for certain organisms. For example: in most cells, the codon 'AUA' codes for the amino acid 'Isoleucine', but in a Yeast cell is codes for the amino acid 'Methionine' </span></span>
         </p>
 
         <p>
@@ -146,11 +169,11 @@
                 case 'GCC': res.push("Ala"); break;
 
                 case 'CGA':
-                case 'CGG': if (dnaType.value == "Mitochondria") {res.push("Trp"); break;}
+                case 'CGG': if (dnaType.value == "Mitochondria") { res.push("Trp"); break; }
                 case 'CGU':
                 case 'CGC':
-                case 'AGA': if (dnaType.value == "Mammalian") {res.push("stop");break;} else if (dnaType.value == "Drosophila") {res.push("Ser");break;}
-                case 'AGG': if (dnaType.value == "Mammalian") {res.push("stop");break;} else if (dnaType.value == "Drosophila") {res.push("Ser");break;} else {res.push("Arg"); break;} 
+                case 'AGA': if (dnaType.value == "Mammalian") { res.push("stop"); break; } else if (dnaType.value == "Drosophila") { res.push("Ser"); break; }
+                case 'AGG': if (dnaType.value == "Mammalian") { res.push("stop"); break; } else if (dnaType.value == "Drosophila") { res.push("Ser"); break; } else { res.push("Arg"); break; }
 
                 case 'AAU':
                 case 'AAC': res.push("Asn"); break;
@@ -182,7 +205,7 @@
                 case 'CUA':
                 case 'CUU':
                 case 'CUC':
-                case 'CUG': if (dnaType.value = "Mitochondria") {res.push("Thr"); break;}
+                case 'CUG': if (dnaType.value = "Mitochondria") { res.push("Thr"); break; }
                 case 'UUA':
                 case 'UUG': res.push("Leu"); break;
 
@@ -221,10 +244,10 @@
                 case 'GUC':
                 case 'GUG': res.push("Val"); break;
 
-                case 'UAA': if (dnaType.value == "Protozoan Nuclei") {res.push("Glu");break;}
-                case 'UAG': if (dnaType.value == "Protozoan Nuclei") {res.push("Glu");break;}
-                case 'UGA': if (dnaType.value == "Higher Plant" || dnaType.value == "Mycoplasma capricolum bacteria" || dnaType.value == "Mitochondria") {res.push("Trp"); break;} else {res.push("Stop"); break;}
-                    
+                case 'UAA': if (dnaType.value == "Protozoan Nuclei") { res.push("Glu"); break; }
+                case 'UAG': if (dnaType.value == "Protozoan Nuclei") { res.push("Glu"); break; }
+                case 'UGA': if (dnaType.value == "Higher Plant" || dnaType.value == "Mycoplasma capricolum bacteria" || dnaType.value == "Mitochondria") { res.push("Trp"); break; } else { res.push("Stop"); break; }
+
                 default: res.push("---"); break
             }
         }
