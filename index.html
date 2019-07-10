@@ -73,10 +73,10 @@
         <hr>
 
         <p>
-            Dna Type:
+            DNA Type:
             <select id="dnaType">
                 <option value="Default">Default</option>
-                <option value="Drosphila">Drosphila</option>
+                <option value="Drosophila">Drosophila</option>
                 <option value="Higher Plant">Higher Plant</option>
                 <option value="Mammalian">Mammalian</option>
                 <option value="Mitochondrial">Mitochondrial</option>
@@ -116,10 +116,6 @@
                 case 'T': res.push('A'); break;
                 case 'C': res.push('G'); break;
                 case 'G': res.push('C'); break;
-                case 'a': res.push('t'); break;
-                case 't': res.push('a'); break;
-                case 'c': res.push('g'); break;
-                case 'g': res.push('c'); break;
                 default: res.push('-'); break;
             }
         }
@@ -134,10 +130,6 @@
                 case 'T': res.push('A'); break;
                 case 'C': res.push('G'); break;
                 case 'G': res.push('C'); break;
-                case 'a': res.push('u'); break;
-                case 't': res.push('a'); break;
-                case 'c': res.push('g'); break;
-                case 'g': res.push('c'); break;
                 default: res.push('-'); break;
             }
         }
@@ -152,70 +144,92 @@
                 case 'GCG':
                 case 'GCU':
                 case 'GCC': res.push("Ala"); break;
+
                 case 'CGA':
-                case 'CGG':
+                case 'CGG': if (dnaType.value == "Mitochondria") {res.push("Trp"); break;}
                 case 'CGU':
                 case 'CGC':
-                case 'AGA':
-                case 'AGG': res.push("Arg"); break;
+                case 'AGA': if (dnaType.value == "Mammalian") {res.push("stop");break;} else if (dnaType.value == "Drosophila") {res.push("Ser");break;}
+                case 'AGG': if (dnaType.value == "Mammalian") {res.push("stop");break;} else if (dnaType.value == "Drosophila") {res.push("Ser");break;} else {res.push("Arg"); break;} 
+
                 case 'AAU':
                 case 'AAC': res.push("Asn"); break;
+
                 case 'GAU':
                 case 'GAC': res.push("Asp"); break;
+
                 case 'UGU':
                 case 'UGC': res.push("Cys"); break;
+
                 case 'CAA':
                 case 'CAG': res.push("Gln"); break;
+
                 case 'GAA':
                 case 'GAG': res.push("Glu"); break;
+
                 case 'GGA':
                 case 'GGG':
                 case 'GGU':
                 case 'GGC': res.push("Gly"); break;
+
                 case 'CAU':
                 case 'CAC': res.push("His"); break;
-                case 'AUA': if (dnaType.value == "Yeast") { res.push("Met"); break; }
+
+                case 'AUA': if (dnaType.value == "Yeast" || dnaType.value == "Mitochondria") { res.push("Met"); break; }
                 case 'AUU':
                 case 'AUC': res.push("Ile"); break;
+
                 case 'CUA':
                 case 'CUU':
                 case 'CUC':
-                case 'CUG':
+                case 'CUG': if (dnaType.value = "Mitochondria") {res.push("Thr"); break;}
                 case 'UUA':
                 case 'UUG': res.push("Leu"); break;
+
                 case 'AAA':
                 case 'AAG': res.push("Lys"); break;
+
                 case 'AUG': res.push("Met"); break;
+
                 case 'UUU':
                 case 'UUC': res.push("Phe"); break;
+
                 case 'CCA':
                 case 'CCG':
                 case 'CCU':
                 case 'CCC': res.push("Pro"); break;
+
                 case 'AGU':
                 case 'AGC':
                 case 'UCA':
                 case 'UCG':
                 case 'UCU':
                 case 'UCC': res.push("Ser"); break;
+
                 case 'ACA':
                 case 'ACG':
                 case 'ACU':
                 case 'ACC': res.push("Thr"); break;
+
                 case 'UGG': res.push("Trp"); break;
+
                 case 'UAU':
                 case 'UAC': res.push("Tyr"); break;
+
                 case 'GUA':
                 case 'GUU':
                 case 'GUC':
                 case 'GUG': res.push("Val"); break;
-                case 'UAA':
-                case 'UAG':
-                case 'UGA': if (dnaType.value == "Higher Plant" || dnaType.value == "Mycoplasma capricolum bacteria" || dnaType.value == "Mitochondria") {res.push("Trp"); break;} else {res.push("stop"); break;}
+
+                case 'UAA': if (dnaType.value == "Protozoan Nuclei") {res.push("Glu");break;}
+                case 'UAG': if (dnaType.value == "Protozoan Nuclei") {res.push("Glu");break;}
+                case 'UGA': if (dnaType.value == "Higher Plant" || dnaType.value == "Mycoplasma capricolum bacteria" || dnaType.value == "Mitochondria") {res.push("Trp"); break;} else {res.push("Stop"); break;}
+                    
                 default: res.push("---"); break
             }
         }
         return res
+        // the organism dependent exceptions in this function were taken from table 2 on this webpage https://medicine.jrank.org/pages/2292/Genetic-Code-Exceptions-Universal-Genetic-Code.html
     }
 
     dnaRnaProtein.addEventListener("submit", function (e) {
