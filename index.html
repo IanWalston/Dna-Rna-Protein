@@ -17,86 +17,33 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>DNA, RNA, and Protein</title>
 
-    <style>
-        html,
-        body {
-            background: #ccc;
-            font-family: monospace;
-        }
-
-        input {
-            font-family: monospace;
-            width: 400px;
-        }
-
-        form {
-            background: #fff;
-            max-width: 700px;
-            margin: 40px auto;
-            padding: 8px 16px;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-        #exampleDna {
-            width: 220px;
-        }
-
-        #copyButton {
-            cursor: pointer;
-        }
-
-        #copyButton img,
-        #questionButton img {
-            position: relative;
-            top: 4px;
-        }
-
-        #questionButton .tooltip {
-            color: white;
-            padding: 2px 8px; 
-            display: none;
-            width: 400px;
-            background: #333;
-            margin-left: 8px; 
-            position: fixed;
-
-        }
-
-        #questionButton:hover .tooltip{
-            display: inline-block; 
-        }
-
-        button {
-            background: blue;
-            color: white;
-            border-radius: 12px;
-            padding: 8px 16px;
-        }
-
-        @media screen and (max-width:700px) {
-            input {
-                width: 200px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <form id="dnaRnaProtein" action="" )>
-        <p>Enter DNA code into the Noncoding DNA input and click "go" to translate that DNA into coding dna, rna, and
-            the resulting amino acid sequence of the protein.</p>
+    <div class='container'>
+        <div class='row alert alert-info mt-4'>
+            <h1>DNA, RNA, and Protein</h1>
+            <ul>
+                <li>Enter a DNA sequence into either the coding or non-coding DNA input</li>
+                <li>click "go" or press enter</li>
+                <li>rna and the amino acid sequence of the resulting protein will be displayed</li>
+            </ul>
+        </div>
 
-        <p>Example DNA code: <input id="exampleDna" value="ATGAGGCTAGATCGTTCAGCCTTTCTAGGCTAG"> <span id='copyButton'>
-                <img width="16px" src="copy.svg" alt=""> <span>copy</span> </span></p>
-
-        <hr>
-
-        <p>
-            DNA Type:
-            <select id="dnaType">
+        <div class='row alert alert-info'>
+            <label for="dnaType">DNA Type:</label>
+            <select id="dnaType" class='form-control mb-4'>
                 <option value="Default">Default</option>
                 <option value="Drosophila">Drosophila</option>
                 <option value="Higher Plant">Higher Plant</option>
@@ -105,176 +52,201 @@
                 <option value="Mycoplasma capricolum bacteria">Mycoplasma capricolum bacteria</option>
                 <option value="Protozoan Nuclei">Protozoan Nuclei</option>
                 <option value="Yeast">Yeast</option>
-            </select> <span id='questionButton'> <img width="16px" src="question.svg" alt=""> <span class='tooltip'>
-                    Exceptions to the amino acid result of some codons exist for certain organisms. For example: in most cells, the codon 'AUA' codes for the amino acid 'Isoleucine', but in a Yeast cell is codes for the amino acid 'Methionine' </span></span>
-        </p>
+            </select>
 
-        <p>
-            3' <input name="nonCodingDna" id="nonCodingDna" cols="30" rows="10"></input> 5' <label
-                for="nonCodingDna">Noncoding
-                DNA</label> <button>Go</button> <br>
-            5' <input name="codingDna" id="codingDna" cols="30" rows="10"></input> 3' <label for="codingDna">Coding
-                DNA</label>
-        </p>
+            Example DNA:
+            <span id='copyButton' class='ml-2'><img width="16px" src="img/copy.svg" alt="">
+                <span>copy</span>
+            </span> <input class='form-control' id="exampleDna" value="ATGAGGCTAGATCGTTCAGCCTTTCTAGGCTAG">
+        </div>
 
-        <div class='center'>&darr;</div>
+        <form id='translate-form' class='row alert alert-primary'>
+            <div class='col'>
+                <div class='row'>
+                    <div class='col-4'>
+                        <img src='img/icon-gene.svg'>
+                    </div>
+                    <div class='col'>
+                        <label for="nonCodingDna"> Noncoding DNA</label>
+                        <input name="nonCodingDna" id="nonCodingDna" class='form-control mb-4' cols="30"
+                            rows="10"></input>
+                        <label for="codingDna">Coding DNA</label>
+                        <input name="codingDna" id="codingDna" class='form-control mb-4' cols="30" rows="10"></input>
+                        <button class='btn btn-primary'>Go</button>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-4'>
+                        <img src='img/icon-rna.svg'>
+                    </div>
+                    <div class='col'>
+                        <label for="rna">RNA</label>
+                        <input name="rna" id="rna" class='form-control' disabled></input><br>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-4'>
+                        <img src='img/icon-protein.svg'>
+                    </div>
+                    <div class='col'>
+                        <label for="protein">Protein</label>
+                        <input name="protein" id="protein" class='form-control' disabled></input>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 
-        <p> 3' <input name="rna" id="rna"></input> 5' <label for="rna">RNA</label><br> </p>
+    <script>
+        var dnaToDna = function (dna) {
+            arr = dna.split("")
+            res = []
+            for (var i = 0; i < arr.length; i++) {
+                switch (arr[i]) {
+                    case 'A': res.push('T'); break;
+                    case 'T': res.push('A'); break;
+                    case 'C': res.push('G'); break;
+                    case 'G': res.push('C'); break;
+                    default: res.push('-'); break;
+                }
+            }
+            return res.join("")
+        }
+        var dnaToRna = function (dna) {
+            arr = dna.split("")
+            res = []
+            for (var i = 0; i < arr.length; i++) {
+                switch (arr[i]) {
+                    case 'A': res.push('U'); break;
+                    case 'T': res.push('A'); break;
+                    case 'C': res.push('G'); break;
+                    case 'G': res.push('C'); break;
+                    default: res.push('-'); break;
+                }
+            }
+            return res.join("")
+        }
+        var rnaToProtein = function (rna) {
+            arr = rna.match(/.{1,3}/g)
+            res = []
+            for (var i = 0; i < arr.length; i++) {
+                switch (arr[i]) {
+                    case 'GCA':
+                    case 'GCG':
+                    case 'GCU':
+                    case 'GCC': res.push("Ala"); break;
 
-        <div class='center'>&darr;</div>
+                    case 'CGA':
+                    case 'CGG': if (dnaType.value == "Mitochondria") { res.push("Trp"); break; }
+                    case 'CGU':
+                    case 'CGC':
+                    case 'AGA': if (dnaType.value == "Mammalian") { res.push("stop"); break; } else if (dnaType.value == "Drosophila") { res.push("Ser"); break; }
+                    case 'AGG': if (dnaType.value == "Mammalian") { res.push("stop"); break; } else if (dnaType.value == "Drosophila") { res.push("Ser"); break; } else { res.push("Arg"); break; }
 
-        <p> N- <input name="protein" id="protein"></input> -C <label for="protein">Protein</label> </p>
+                    case 'AAU':
+                    case 'AAC': res.push("Asn"); break;
 
-    </form>
+                    case 'GAU':
+                    case 'GAC': res.push("Asp"); break;
 
+                    case 'UGU':
+                    case 'UGC': res.push("Cys"); break;
+
+                    case 'CAA':
+                    case 'CAG': res.push("Gln"); break;
+
+                    case 'GAA':
+                    case 'GAG': res.push("Glu"); break;
+
+                    case 'GGA':
+                    case 'GGG':
+                    case 'GGU':
+                    case 'GGC': res.push("Gly"); break;
+
+                    case 'CAU':
+                    case 'CAC': res.push("His"); break;
+
+                    case 'AUA': if (dnaType.value == "Yeast" || dnaType.value == "Mitochondria") { res.push("Met"); break; }
+                    case 'AUU':
+                    case 'AUC': res.push("Ile"); break;
+
+                    case 'CUA':
+                    case 'CUU':
+                    case 'CUC':
+                    case 'CUG': if (dnaType.value = "Mitochondria") { res.push("Thr"); break; }
+                    case 'UUA':
+                    case 'UUG': res.push("Leu"); break;
+
+                    case 'AAA':
+                    case 'AAG': res.push("Lys"); break;
+
+                    case 'AUG': res.push("Met"); break;
+
+                    case 'UUU':
+                    case 'UUC': res.push("Phe"); break;
+
+                    case 'CCA':
+                    case 'CCG':
+                    case 'CCU':
+                    case 'CCC': res.push("Pro"); break;
+
+                    case 'AGU':
+                    case 'AGC':
+                    case 'UCA':
+                    case 'UCG':
+                    case 'UCU':
+                    case 'UCC': res.push("Ser"); break;
+
+                    case 'ACA':
+                    case 'ACG':
+                    case 'ACU':
+                    case 'ACC': res.push("Thr"); break;
+
+                    case 'UGG': res.push("Trp"); break;
+
+                    case 'UAU':
+                    case 'UAC': res.push("Tyr"); break;
+
+                    case 'GUA':
+                    case 'GUU':
+                    case 'GUC':
+                    case 'GUG': res.push("Val"); break;
+
+                    case 'UAA': if (dnaType.value == "Protozoan Nuclei") { res.push("Glu"); break; }
+                    case 'UAG': if (dnaType.value == "Protozoan Nuclei") { res.push("Glu"); break; }
+                    case 'UGA': if (dnaType.value == "Higher Plant" || dnaType.value == "Mycoplasma capricolum bacteria" || dnaType.value == "Mitochondria") { res.push("Trp"); break; } else { res.push("Stop"); break; }
+
+                    default: res.push("---"); break
+                }
+            }
+            return res
+            // the organism dependent exceptions in this function were taken from table 2 on this webpage https://medicine.jrank.org/pages/2292/Genetic-Code-Exceptions-Universal-Genetic-Code.html
+        }
+
+
+        $('#translate-form').on("submit", function (e) {
+            e.preventDefault()
+
+            if (nonCodingDna.value && !codingDna.value) codingDna.value = dnaToDna(nonCodingDna.value)
+            if (codingDna.value && !nonCodingDna.value) nonCodingDna.value = dnaToDna(codingDna.value)
+
+            rna.value = dnaToRna(codingDna.value)
+            protein.value = rnaToProtein(rna.value)
+        })
+
+        copyButton.addEventListener("click", function (e) {
+            e.preventDefault()
+
+            exampleDna.select()
+            document.execCommand("copy")
+
+            copyButton.children[1].innerHTML = "copied"
+            copyButton.children[1].style.color = "blue"
+        })
+
+
+
+    </script>
 </body>
-
-<script>
-    var dnaToDna = function (dna) {
-        arr = dna.split("")
-        res = []
-        for (var i = 0; i < arr.length; i++) {
-            switch (arr[i]) {
-                case 'A': res.push('T'); break;
-                case 'T': res.push('A'); break;
-                case 'C': res.push('G'); break;
-                case 'G': res.push('C'); break;
-                default: res.push('-'); break;
-            }
-        }
-        return res.join("")
-    }
-    var dnaToRna = function (dna) {
-        arr = dna.split("")
-        res = []
-        for (var i = 0; i < arr.length; i++) {
-            switch (arr[i]) {
-                case 'A': res.push('U'); break;
-                case 'T': res.push('A'); break;
-                case 'C': res.push('G'); break;
-                case 'G': res.push('C'); break;
-                default: res.push('-'); break;
-            }
-        }
-        return res.join("")
-    }
-    var rnaToProtein = function (rna) {
-        arr = rna.match(/.{1,3}/g)
-        res = []
-        for (var i = 0; i < arr.length; i++) {
-            switch (arr[i]) {
-                case 'GCA':
-                case 'GCG':
-                case 'GCU':
-                case 'GCC': res.push("Ala"); break;
-
-                case 'CGA':
-                case 'CGG': if (dnaType.value == "Mitochondria") { res.push("Trp"); break; }
-                case 'CGU':
-                case 'CGC':
-                case 'AGA': if (dnaType.value == "Mammalian") { res.push("stop"); break; } else if (dnaType.value == "Drosophila") { res.push("Ser"); break; }
-                case 'AGG': if (dnaType.value == "Mammalian") { res.push("stop"); break; } else if (dnaType.value == "Drosophila") { res.push("Ser"); break; } else { res.push("Arg"); break; }
-
-                case 'AAU':
-                case 'AAC': res.push("Asn"); break;
-
-                case 'GAU':
-                case 'GAC': res.push("Asp"); break;
-
-                case 'UGU':
-                case 'UGC': res.push("Cys"); break;
-
-                case 'CAA':
-                case 'CAG': res.push("Gln"); break;
-
-                case 'GAA':
-                case 'GAG': res.push("Glu"); break;
-
-                case 'GGA':
-                case 'GGG':
-                case 'GGU':
-                case 'GGC': res.push("Gly"); break;
-
-                case 'CAU':
-                case 'CAC': res.push("His"); break;
-
-                case 'AUA': if (dnaType.value == "Yeast" || dnaType.value == "Mitochondria") { res.push("Met"); break; }
-                case 'AUU':
-                case 'AUC': res.push("Ile"); break;
-
-                case 'CUA':
-                case 'CUU':
-                case 'CUC':
-                case 'CUG': if (dnaType.value = "Mitochondria") { res.push("Thr"); break; }
-                case 'UUA':
-                case 'UUG': res.push("Leu"); break;
-
-                case 'AAA':
-                case 'AAG': res.push("Lys"); break;
-
-                case 'AUG': res.push("Met"); break;
-
-                case 'UUU':
-                case 'UUC': res.push("Phe"); break;
-
-                case 'CCA':
-                case 'CCG':
-                case 'CCU':
-                case 'CCC': res.push("Pro"); break;
-
-                case 'AGU':
-                case 'AGC':
-                case 'UCA':
-                case 'UCG':
-                case 'UCU':
-                case 'UCC': res.push("Ser"); break;
-
-                case 'ACA':
-                case 'ACG':
-                case 'ACU':
-                case 'ACC': res.push("Thr"); break;
-
-                case 'UGG': res.push("Trp"); break;
-
-                case 'UAU':
-                case 'UAC': res.push("Tyr"); break;
-
-                case 'GUA':
-                case 'GUU':
-                case 'GUC':
-                case 'GUG': res.push("Val"); break;
-
-                case 'UAA': if (dnaType.value == "Protozoan Nuclei") { res.push("Glu"); break; }
-                case 'UAG': if (dnaType.value == "Protozoan Nuclei") { res.push("Glu"); break; }
-                case 'UGA': if (dnaType.value == "Higher Plant" || dnaType.value == "Mycoplasma capricolum bacteria" || dnaType.value == "Mitochondria") { res.push("Trp"); break; } else { res.push("Stop"); break; }
-
-                default: res.push("---"); break
-            }
-        }
-        return res
-        // the organism dependent exceptions in this function were taken from table 2 on this webpage https://medicine.jrank.org/pages/2292/Genetic-Code-Exceptions-Universal-Genetic-Code.html
-    }
-
-    dnaRnaProtein.addEventListener("submit", function (e) {
-        e.preventDefault()
-
-        if (nonCodingDna.value && !codingDna.value) codingDna.value = dnaToDna(nonCodingDna.value)
-        if (codingDna.value && !nonCodingDna.value) nonCodingDna.value = dnaToDna(codingDna.value)
-
-        rna.value = dnaToRna(codingDna.value)
-        protein.value = rnaToProtein(rna.value)
-    })
-
-    copyButton.addEventListener("click", function (e) {
-        e.preventDefault()
-
-        exampleDna.select()
-        document.execCommand("copy")
-
-        copyButton.children[1].innerHTML = "copied"
-        copyButton.children[1].style.color = "blue"
-    })
-
-</script>
 
 </html>
